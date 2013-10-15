@@ -1,4 +1,5 @@
-# Vagrant Meteor App Starter (Work in Progress - Not Fully Functional)
+# Vagrant Meteor App Starter 
+### (Work in Progress - Not Fully Functional)
 
 A Meteor project starter, utilizing a Vagrant VM (default: Ubuntu 12.04 Precise Pangolin 32-bit) provisioned with Chef Solo.
 
