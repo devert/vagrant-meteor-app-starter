@@ -1,0 +1,12 @@
+*.sublime-project
+*.sublime-workspace
+*.lock
+*.log
+*.node
+*.DS_Store
+.vagrant
+
+node_modules
+build
+cookbooks
+tmp
