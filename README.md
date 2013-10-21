@@ -8,7 +8,7 @@ Cookbooks included:
 * [apt](https://github.com/opscode-cookbooks/apt)
 * [build-essential](https://github.com/opscode-cookbooks/build-essential)
 * [curl](https://github.com/retr0h/cookbook-curl)
-* [meteor](http://community.opscode.com/cookbooks/meteor) - Included in ```proj-cookbooks``` folder as it can't be downloaded by Librarian-Chef.
+* [meteor](https://github.com/shoebappa/vagrant-meteor-windows) - Included in ```proj-cookbooks``` folder as it can't be downloaded by Librarian-Chef. Also renamed to just "meteor".
 * [nodejs](https://github.com/mdxp/nodejs-cookbook.git)
 * [vim](https://github.com/opscode-cookbooks/vim)
 
@@ -35,9 +35,8 @@ $ vagrant plugin install vagrant-librarian-chef
 $ cd vagrant
 $ vagrant up
 $ vagrant ssh
-$ meteor create [proj-name]
 $ cd [proj-name]
-$ meteor
+$ meteor run
 ```
 
 After running the above commands you should be able to browse to http://locahost:3000/ and see your running Meteor app. Changes to files via the host machine will immediately be updated on the guest VM as well. Now get in there and build something awesometronic with Meteor!

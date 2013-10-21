@@ -1,0 +1,1 @@
+vagrant ssh -c "cd <%= node["meteor"]["sync_directory"] %>/<%= @appname %> && <%= node["meteor"]["meteor_command"] %> %*"

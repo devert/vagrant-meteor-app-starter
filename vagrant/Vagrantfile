@@ -7,11 +7,13 @@ Vagrant.configure("2") do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "precise32"
+  config.vm.box = "opscodePrecise32"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = "http://files.vagrantup.com/precise32.box"
+  # This Opscode box is used because the default Vagrant boxes come with an older version of chef, which the nodejs package option doesn't work with.
+  # To use another box, you will need to remove the nodejs install_method from the chef.json, which will use the default method of source, which takes a while
+  config.vm.box_url = "https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04-i386_chef-11.4.4.box"
 
   # This can be set to the host name you wish the guest machine to have.
   config.vm.hostname = "proj-name-dev-box"
@@ -34,7 +36,7 @@ Vagrant.configure("2") do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "../src", "/home/vagrant/"
+  # config.vm.synced_folder "../src", "/home/vagrant/proj-name"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -44,9 +46,10 @@ Vagrant.configure("2") do |config|
     # vb.gui = true
   
     # Use VBoxManage to customize the VM. For example, to change memory and 
-    # allow symlinks to be created in the shared folder (ex: node_modules):
+    # allow symlinks to be created in root vagrant folder and meteor app folder:
     vb.customize ["modifyvm", :id, "--memory", "1024"]
-    vb.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/proj-name", "1"]
+    # vb.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/proj-name", "1"]
+    vb.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant-root", "1"]
   end
   # View the documentation for the provider you're using for more
   # information on available options.
@@ -61,17 +64,18 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "curl"
     chef.add_recipe "nodejs"
     chef.add_recipe "meteor"
-    chef.add_recipe "meteor::mongodb"
     chef.add_recipe "vim"
 
     chef.json = {
-      "nodejs" => {
-        "version" => "0.10.18"
+      :nodejs => {
+        :install_method => "package"
       },
-      "meteor" => {
-        "meteor_homedir" => "/home/vagrant",
-        "meteor_uid" => nil,
-        "meteor_gid" => nil
+      :meteor => {
+        :apps => [
+            "proj-name"
+        ],
+        :sync_directory => "/src",
+        :home_directory => "/home/vagrant"
       }
     }
   end

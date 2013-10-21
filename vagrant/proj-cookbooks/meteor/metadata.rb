@@ -1,17 +1,16 @@
-maintainer       "David Knell"
-maintainer_email "dk45@mac.com"
-license          "Apache 2.0"
-description      "Installs Meteor -  a radical javascript/node.js web development framework"
-long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "0.1.4"
+# Fork of Matthew Sullivan's meteor_windows recipe. Renamed to just "meteor"
+name              "meteor"
+maintainer        "Matthew Sullivan"
+maintainer_email  "shoebappa@gmail.com"
+description       "Installs Meteor and Meteorite for a Vagrant box and mounts symlinks that will work on vagrant windows"
+version           "0.0.1"
 
-supports "ubuntu"
-supports "debian"
+depends           "apt"
+depends           "build-essential"
+depends           "nodejs"
+depends           "curl"
 
-depends "apt"
-depends "build-essential"
-depends "nodejs"
-
-recipe  "meteor", "Main meteor configuration"
-recipe  "meteor::mongodb", "Installs Mongodb"
+%w{ debian ubuntu }.each do |os|
+  supports os
+end
 
